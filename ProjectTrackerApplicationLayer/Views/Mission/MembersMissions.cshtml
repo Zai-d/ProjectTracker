@@ -1,0 +1,91 @@
+﻿@using ProjectTrackerBusinessLayer.Entities;
+@using System.Linq;
+@using System.Collections.Generic;
+@model List<Mission>;
+@*@{
+    Layout = "~/Views/Shared/_LayoutFluidContainer.cshtml";
+}*@
+<h1 class="text-center">Sprint: @ViewBag.Sprint.Name</h1>
+<br />
+
+        <h5 class="text-danger mx-3">Last date to submit work:@ViewBag.Sprint.EndDate </h5>
+  
+<hr />
+
+<h3 class="text-center">My missions</h3>
+<br />
+
+<div class="row justify-content-center">
+    <div class="col-12">
+        <div class="card shadow mb-4 mx-3">
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-bordered table-hover cell-border" id="MissionTable" width="100%" cellspacing="0">
+                        <thead>
+                            <tr class="font-weight-bolder">
+                                <th>
+                                    Mission Title
+                                </th>
+                                <th>
+                                    Mission Description
+                                </th>
+
+                                <th>
+                                    Status
+                                </th>
+                                <th>
+                                    Work Submitted
+                                </th>
+                                <th>
+                                    Action
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @{
+                                foreach (var mission in Model)
+                                {
+                                    <tr>
+                                        <td> @mission.Name</td>
+                                        <td> @mission.MissionDescription</td>
+                                        <td>@mission.Status.Name</td>
+                                        <td>
+                                            <ul>
+                                                @foreach (var work in mission.Works)
+                                                {
+                                                    <li>@work.Name</li>
+
+                                                }
+                                            </ul>
+                                        </td>
+                                        @if(mission.Works.Any())
+                                        {
+                                            <td><a class="btn bg-gradient-info text-white" href="/Work/MembersWorks?MissionID=@mission.MissionID">View Works</a></td>
+                                        }
+                                        else
+                                        {
+                                            if(mission.StatusID != 4 ||  mission.StatusID !=5 )
+                                            {
+                                                <td><a class="btn btn-outline-info" href="/Work/AddWork?MissionID=@mission.MissionID">Add Works</a></td>
+                                            }
+                                            else
+                                            {
+                                                <td><a class="btn btn-outline-info text-white disabled">Add Works</a></td>
+                                            }
+                                        }
+                                    </tr>
+                                }
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="row mx-3">
+            <a class="btn btn-info" href="/Sprint/AllSprintsMember?projectID=@ViewBag.Sprint.ProjectID">Back</a>
+		</div>
+    </div>
+
+</div>
+@*</div>
+*@

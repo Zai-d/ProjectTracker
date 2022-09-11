@@ -1,0 +1,50 @@
+﻿@using ProjectTrackerBusinessLayer.Entities;
+@*@using ProjectTrackerApplicationLayer.DTO;
+*@
+@model Sprint
+@{
+    ViewData["Title"] = "Create Sprint";
+}
+<br />
+<h2 class="text-center">New Sprint Form</h2>
+<br />
+<hr />
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-8">
+            <form asp-action="AddingSprint">
+                <div asp-validation-summary="All" class="text-danger"></div>
+                @Html.HiddenFor(x=>x.Project.Description)
+                <input asp-for="ProjectID" hidden />
+                <div class="form-group">
+                    <label class="label-control">Project Name</label>
+                    <input asp-for="Project.Name" readonly class="form-control" />
+                </div>
+                <div class="form-group">
+                    <label class="label-control">Project Status</label>
+                    <input asp-for="Project.Status.Name" readonly class="form-control" />
+                </div>
+                <div class="form-group">
+                    <label class="label-control">Project Deadline</label>
+                    <input asp-for="Project.DeadLine" readonly class="form-control" />
+                </div>
+                <div class="form-group">
+                    <label asp-for="Name" class="label-control"></label>
+                    <input asp-for="Name" class="form-control col-md-5" />
+                    <span asp-validation-for="Name" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="StartDate" class="label-control"></label>
+                    <input asp-for="StartDate" class="form-control"/>
+                    <span asp-validation-for="StartDate" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="EndDate" class="label-control"></label>
+                    <input asp-for="EndDate" class="form-control" />
+                    <span asp-validation-for="EndDate" class="text-danger"></span>
+                </div>
+                <input type="submit" value="Add" class="btn btn-outline-info" />
+            </form>
+        </div>
+    </div>
+</div>

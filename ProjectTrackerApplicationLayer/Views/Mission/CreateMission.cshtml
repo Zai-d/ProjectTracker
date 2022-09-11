@@ -1,0 +1,54 @@
+﻿@using ProjectTrackerBusinessLayer.Entities;
+@using Microsoft.AspNetCore.Identity;
+@*@using ProjectTrackerApplicationLayer.DTO;
+*@
+@model Mission
+@{
+	ViewData["Title"] = "Create Mission";
+}
+<br />
+<h2 class="text-center">New Mission Form</h2>
+<br />
+<h4 class="text-center">Sprint: @Model.Sprint.Name</h4>
+<br />
+<div class="container">
+	<div class="row justify-content-center">
+		<div class="col-8">
+			<p>Start date: @Model.Sprint.StartDate <br />   End Date: @Model.Sprint.EndDate</p>
+		</div>
+	</div>
+</div>
+<hr />
+<br />
+
+<div class="container">
+	<div class="row justify-content-center">
+		<div class="col-8">
+			<form asp-action="AddingMission">
+				<div asp-validation-summary="All" class="text-danger"></div>
+				<input asp-for="SprintID" hidden />
+				<div class="form-group">
+					<label asp-for="Name" class="label-control"></label>
+					<input asp-for="Name" class="form-control col-md-5" />
+					<span asp-validation-for="Name" class="text-danger"></span>
+				</div>
+				<div class="form-group">
+					<label asp-for="MissionDescription" class="label-control"></label>
+					<textarea asp-for="MissionDescription" class="form-control"></textarea>
+					<span asp-validation-for="MissionDescription" class="text-danger"></span>
+				</div>
+				<div class="form-group">
+					<label class="label-control">Member</label>
+					<select class="form-control" name="TeamMemberID">
+						<option disabled selected value="">Select a team member</option>
+						@foreach (var member in (List<TeamMember>)ViewBag.members)
+						{
+							<option value="@member.Id">@member.UserName</option>
+						}
+					</select>
+				</div>
+				<input type="submit" value="Create" class="btn btn-outline-info" />
+			</form>
+		</div>
+	</div>
+</div>

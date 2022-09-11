@@ -1,0 +1,143 @@
+﻿
+<h1 class="text-center">All Works</h1>
+
+<br />
+<hr />
+
+<script>
+	//$(document).ready(function () {
+	//	alert("in function");
+	//	$.ajax({
+	//		url: '/WorkAPI/AllWorks?missionID=@ViewBag.missionID',
+	//		method: 'GET',
+	//		dataType: 'json',
+	//		success: function (works) {
+	//			//$('#Table').append(
+	//			//	'<table class="table table-bordered table-hover cell-border" id="WorkTable" width="100%"' +
+	//			//	'cellspacing="0"> <thead><tr class="font-weight-bolder" > <th>In Project </th>' +
+	//			//	'<th> Work Title </th> <th> Work Description </th> <th>Team Member</th> <th>Status </th>' +
+	//			//	'<th>Attachment Submitted</th> <th> Team Leader Note </th> <th> Action </th></tr> </thead> <tbody>')
+	//			debugger;
+	//			for (var i = 0; i < works.length; i++) {
+	//				$('#WorkAPI').append('<tr>' + '<td>' + works[i].projectName + '</td>' +
+	//					'<td>' + works[i].workName + '</td>' + '<td>' + works[i].workDescription + '</td>' +
+	//					'<td>' + works[i].memberName + '</td>' + '<td>' + works[i].workStatus + '</td>' +
+	//					'<td>' + works[i].filesNames + '</td>' + '<td>' + works[i].teamLeaderNote + '</td>' +
+	//					'<td> <a class="btn bg-gradient-danger text-white" onclick="Deletefunc(' + works[i].workID + ')">' +
+	//					'Delete </a> <hr>' +
+	//					'<a class="btn bg-gradient-info text-white" href="/WorkAPI/EditWorkForm?workID=' + works[i].workID + '&missionID=' + works[i].missionID + '\">' +
+	//					'Edit </a> </td > </tr>')
+	//			}
+
+	//		},
+	//		error: function () {
+	//			alert('error:');
+	//		}
+	//	});
+
+	//});
+	$(document).ready(function () {
+		$('#WorkAPI').DataTable({
+
+			ajax: {
+				"url": '/WorkAPI/AllWorks?missionID=@ViewBag.missionID',
+				"type": "GET",
+				"dataType": "json",
+				"dataSrc": "",
+			},
+			paging: false,
+			ordering: true,
+			columnDefs: [
+				{ orderable: false, targets: 7 }
+			],
+			info: false,
+			columns: [
+				{
+					"data": "projectName"
+				},
+				{ "data": "workName" },
+				{ "data": "workDescription" },
+				{ "data": "memberName" },
+				{ "data": "workStatus" },
+				{ "data": "filesNames" },
+				{ "data": "teamLeaderNote" },
+				{
+					"render": function (data, type, full, meta) { return '<a class="btn bg-gradient-danger text-white" onclick="Deletefunc(' + full.workID+ ')">Delete</a>'; },
+				},
+				{
+					"render": function (data, type, full, meta) { return '<a class="btn bg-gradient-info text-white" href="/WorkAPI/EditWorkForm?workID=' + full.workID+'&missionID='+full.missionID+'">Edit</a>'; },
+				}
+
+
+			],
+
+		});
+	});
+
+	function Deletefunc(id) {
+		$.ajax({
+			url: '/WorkAPI/DeleteWork?workID=' + id,
+			method: 'DELETE',
+			success: function () {
+				alert('record has been deleted');
+				document.location.reload(true)
+			},
+			error: function (error) {
+				alert('error');
+			}
+		});
+	}
+
+
+
+</script>
+
+<div class="row mx-3">
+	<a class="btn bg-gradient-info text-white" href="/WorkAPI/NewWorkFormAPI?missionID=@ViewBag.missionID">Add Work</a>
+</div>
+<div class="row justify-content-center">
+	<div class=" col-12">
+		<div class="card mx-3 shadow mb-4">
+
+			<div class="card-body">
+				<div class="table-responsive" id="Table">
+					<table class="table table-bordered table-hover cell-border" id="WorkAPI" width="100%" cellspacing="0">
+						<thead>
+							<tr class="font-weight-bolder">
+								<th>
+									In Project
+								</th>
+								<th>
+									Work Title
+								</th>
+								<th>
+									Work Description
+								</th>
+								<th>
+									Team Member
+								</th>
+								<th>
+									Status
+								</th>
+								<th>
+									Attachment Submitted
+								</th>
+								<th>
+									Team Leader Note
+								</th>
+								<th>
+									Delete
+								</th>
+								<th>
+									Edit
+								</th>
+
+							</tr>
+						</thead>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+
+</div>

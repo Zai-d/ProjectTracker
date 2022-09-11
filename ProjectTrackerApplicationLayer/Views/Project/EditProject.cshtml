@@ -1,0 +1,129 @@
+﻿@using ProjectTrackerBusinessLayer.Entities;
+@using ProjectTrackerApplicationLayer.DTO;
+@model Project
+@{
+	ViewData["Title"] = "Editting Project";
+}
+<br />
+<h2 class="text-center">Edit @Model.Name</h2>
+<br />
+<hr />
+<script>
+	function StatusChecker(event) {
+		event.preventDefault();
+		var status = $('#Status').val();
+		if (status == 4 || status == 5) {
+			$('#statusModal').modal('show');
+		}
+		else {
+			$("#projectEditForm").submit();
+		}
+	}
+
+	function dismissDialog() {
+		$('#statusModal').modal('hide');
+	}
+
+	function submitForm() {
+		$("#projectEditForm").submit();
+	}
+</script>
+
+<div class="modal fade" id="statusModal" tabindex="-1" role="dialog" aria-labelledby="statusCheckerModal"
+	 aria-hidden="true">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="statusCheckerModal">Are you sure you want to change the status to Cancelled/Completed?</h5>
+				<button class="close" type="button" data-dismiss="modal" aria-label="Close" onclick="dismissDialog()">
+					<span aria-hidden="true">×</span>
+				</button>
+			</div>
+			<div class="modal-body">Changing status to Cancelled/Compeleted will prevent any changes inside the project, click cancel to go back and change the status and submit to proceed</div>
+			<div class="modal-footer">
+				<button class="btn btn-secondary" type="button" data-dismiss="modal" onclick="dismissDialog()">Cancel</button>
+				<button class="btn btn-info" onclick="submitForm()">Submit</button>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="container">
+	<div class="row justify-content-center">
+		<div class="col-8">
+			<form id="projectEditForm" asp-action="EdittingProject">
+				<div asp-validation-summary="All" class="text-danger"></div>
+				@Html.HiddenFor(x=> x.ProjectID)
+				<div class="form-group">
+					<label asp-for="Name" class="label-control"></label>
+					<input asp-for="Name" class="form-control col-md-5" />
+					<span asp-validation-for="Name" class="text-danger"></span>
+				</div>
+				<div class="form-group">
+					<label asp-for="Description" class="label-control"></label>
+					<textarea asp-for="Description" class="form-control"></textarea>
+					<span asp-validation-for="Description" class="text-danger"></span>
+				</div>
+				<div class="form-group">
+					<label asp-for="DeadLine" class="label-control"></label>
+					<input asp-for="DeadLine" class="form-control" />
+					<span asp-validation-for="DeadLine" class="text-danger"></span>
+				</div>
+				<div class="form-group">
+					<label class="label-control">Team Leader</label>
+					<select class="form-control" name="TeamLeaderID">
+						@foreach (var leader in (List<TeamLeader>)ViewBag.Leaders)
+						{
+							var test = Model.UsersProjects;
+							if (test.Any(x => x.UserID == leader.Id))
+							{
+								<option selected value="@leader.Id">@leader.FirstName @leader.LastName</option>
+							}
+							else
+							{
+								<option value="@leader.Id">@leader.FirstName @leader.LastName</option>
+							}
+						}
+					</select>
+				</div>
+				<div class="form-group">
+					<label class="label-control">Team Member</label>
+					<select id="MultipleMembers" multiple class="form-control" name="TeamMembersIDs">
+						@foreach (var member in (List<TeamMember>)ViewBag.Members)
+						{
+							var test = Model.UsersProjects;
+							if (test.Any(x => x.UserID == member.Id))
+							{
+								<option selected value="@member.Id">@member.FirstName @member.LastName</option>
+							}
+							else
+							{
+								<option value="@member.Id">@member.FirstName @member.LastName</option>
+							}
+
+						}
+					</select>
+				</div>
+				<div class="form-group">
+					<label class="label-control">Status</label>
+					<select id="Status" class="form-control" name="StatusID">
+						@foreach (var status in (List<Status>)ViewBag.Statuses)
+						{
+
+							if (Model.StatusID == status.StatusID)
+							{
+								<option selected value="@status.StatusID">@status.Name</option>
+							}
+							else
+							{
+								<option value="@status.StatusID">@status.Name</option>
+							}
+
+						}
+					</select>
+				</div>
+				<button type="submit" value="Update" class="btn btn-outline-info" onclick="StatusChecker(event)">Update</button>
+			</form>
+		</div>
+	</div>
+</div>
+

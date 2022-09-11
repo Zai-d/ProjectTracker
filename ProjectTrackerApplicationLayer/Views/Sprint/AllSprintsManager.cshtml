@@ -1,0 +1,85 @@
+﻿@using ProjectTrackerBusinessLayer.Entities
+
+@model List<Sprint>
+
+@*@{
+    Layout = "~/Views/Shared/_LayoutFluidContainer.cshtml";
+}*@
+
+
+<h1 class="text-center">Project: @ViewBag.Project.Name <br /> Sprints</h1>
+
+<br />
+
+        <h5 class="font-weight-bolder text-danger mx-3"> Project's deadline: @ViewBag.Project.DeadLine</h5>
+
+<hr />
+
+<div class="row justify-content-center">
+    <div class=" col-12">
+        <div class="card shadow mx-3 mb-4">
+
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-bordered table-hover cell-border" id="SprintTable" width="100%" cellspacing="0">
+                        <thead>
+                            <tr class="font-weight-bolder">
+                                <th>
+                                    Sprint Name
+                                </th>
+                                <th>
+                                    Start Date
+                                </th>
+                                <th>
+                                    End Date
+                                </th>
+                                <th>
+                                    Status
+                                </th>
+                                <th>
+                                    Missions for members
+                                </th>
+                                <th>
+                                    Action
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @{
+                                foreach (var sprint in Model)
+                                {
+                                    <tr>
+                                        <td> @sprint.Name</td>
+                                        <td> @sprint.StartDate</td>
+                                        <td> @sprint.EndDate</td>
+                                        <td> @sprint.Status.Name</td>
+                                        <td>
+                                            <ul>
+                                                @foreach (var mission in sprint.Missions)
+                                                {
+                                                    <li>@mission.Name for @mission.TeamMember.UserName</li>
+                                                }
+                                            </ul>
+                                        </td>
+                                        @{
+                                            if (sprint.Missions.Count() != 0)
+                                            {
+                                                <td> <a class="btn bg-gradient-info text-white" href="/Mission/AllMissionsManager?SprintID=@sprint.SprintID">View missions</a></td>
+                                            }
+                                            else
+                                            {
+                                                <td> <a class="btn bg-dark disabled text-white">No missions</a></td>
+                                            }
+                                        }
+                                    </tr>
+                                }
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@*</div>
+*@

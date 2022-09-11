@@ -1,0 +1,78 @@
+﻿@using ProjectTrackerApplicationLayer.DTO;
+@using ProjectTrackerBusinessLayer.Entities
+@model Work
+@{
+	Layout = "~/Views/Shared/_FileInputLayout.cshtml";
+
+	ViewData["Title"] = "Submit Work";
+}
+
+
+<br />
+<h2 class="text-center">New Work Form</h2>
+<br />
+<hr />
+
+<script>
+	function AddWork(event) {
+		event.preventDefault();
+
+		var form = document.getElementById('AddWorkForm');
+		var formData = new FormData(form);
+		$.ajax({
+			url: '/WorkAPI/AddingWork',
+			data: formData,
+			type: 'POST',
+			processData: false,
+			contentType: false,
+			dataType: 'json',
+			success: function () {
+				alert('Work submited');
+				window.location.href = '@Url.Action("AllWorksAPI", "WorkAPI")' + '?missionID=' + @ViewBag.mission.MissionID;
+			},
+			error: function () {
+
+
+				alert('error!');
+			}
+
+		});
+
+	};
+
+</script>
+
+
+<h4 class="text-center">@ViewBag.Mission.Name</h4>
+<div class="container">
+	<div class="row justify-content-center">
+		<div class="col-8">
+			<form id="AddWorkForm" method="post" enctype="multipart/form-data">
+				<div asp-validation-summary="All" class="text-danger"></div>
+				<input value="@ViewBag.mission.MissionID" name="missionID" hidden />
+				<input value="@ViewBag.mission.TeamMemberID" name="memberID" hidden />
+				<input value="1" name="StatusID" hidden />
+				<div class="form-group">
+					<label asp-for="Name" class="label-control"></label>
+					<input asp-for="Name" class="form-control col-md-5" />
+					<span asp-validation-for="Name" class="text-danger"></span>
+				</div>
+				<div class="form-group">
+					<label asp-for="WorkDescription" class="label-control"></label>
+					<textarea asp-for="WorkDescription" class="form-control"></textarea>
+					<span asp-validation-for="WorkDescription" class="text-danger"></span>
+				</div>
+				<div class="form-group">
+					<label class="label-control">Attachments</label> <br />
+					<input type="file" class="file" multiple id="FileLib" name="files" />
+					<script>
+						// with plugin options
+						$("#FileLib").fileinput({ 'showUpload': false, 'previewFileType': 'any' });
+					</script>
+				</div>
+				<br />
+				<button type="submit" value="Add" class="btn btn-outline-info" onclick="AddWork(event)">Add</button>
+			</form>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,71 @@
+﻿@page
+@model LoginModel
+@{
+    Layout= "/Views/Shared/_LoginLayout.cshtml";
+    ViewData["Title"] = "Log in";
+}
+<style>
+
+
+    #content {
+        margin: 0;
+        position: absolute;
+        top: 5%;
+        left: 50%;
+        -ms-transform: translate(-50%, -5%);
+        transform: translate(-50%, -5%);
+    }
+
+</style>
+
+    <div class="container" id="content">
+        <div class="row justify-content-center">
+
+            <div class="col-md-7">
+
+                <div class="card o-hidden border-0 shadow-lg my-5">
+                    <div class="card-body  p-0">
+                        <!-- Nested Row within Card Body -->
+                        <div class="row justify-content-center">
+                            <div class="col-lg-9">
+                                <div class="p-5">
+                                    <div class="text-center">
+                                        <h1 class="h4 text-gray-900 mb-4">Welcome!</h1>
+                                    </div>
+                                    <form id="account" class="user" method="post">
+                                        <hr />
+                                        <div asp-validation-summary="All" class="text-danger"></div>
+                                        <div class="form-group">
+                                            <label asp-for="Input.Email"></label>
+                                            <input type="email" asp-for="Input.Email" class="form-control form-control-user"
+                                                   id="exampleInputEmail" aria-describedby="emailHelp"
+                                                   placeholder="Enter Email Address...">
+                                            <span asp-validation-for="Input.Email" class="text-danger"></span>
+                                        </div>
+                                        <div class="form-group">
+                                            <label asp-for="Input.Password"></label>
+                                            <input type="password" asp-for="Input.Password" class="form-control form-control-user"
+                                                   id="exampleInputPassword" placeholder="Password">
+                                            <span asp-validation-for="Input.Password" placeholder="" class="text-danger"></span>
+                                        </div>
+                                        <div class="form-check mb-3">
+                                            <div class="checkbox">
+                                                <label asp-for="Input.RememberMe">
+                                                    <input asp-for="Input.RememberMe" />
+                                                    @Html.DisplayNameFor(m => m.Input.RememberMe)
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <div class="form-group text-center">
+                                            <button type="submit" class="btn bg-info text-white" @*style="background-color:#64b3dc"*@>Log in</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+

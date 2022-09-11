@@ -1,0 +1,117 @@
+﻿@using ProjectTrackerBusinessLayer.Entities;
+@using System.Linq;
+@using System.Collections.Generic;
+@model List<Project>;
+@*@{
+    Layout = "~/Views/Shared/_LayoutFluidContainer.cshtml";
+}*@
+
+<h1 class="text-center">My Porjects</h1>
+<br />
+<div class="row mx-3">
+    <a class="btn bg-gradient-info text-white" href="/Project/CreateProject">Add New Project</a>
+</div>
+<hr />
+<div class="row justify-content-center">
+    <div class=" col-12">
+        <div class="card shadow mb-4 mx-3">
+
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-bordered table-hover cell-border" id="ManagerProject" width="100%" cellspacing="0">
+                        <thead>
+                            <tr class="font-weight-bolder">
+                                <th>
+                                    Project Title
+                                </th>
+                                <th>
+                                    Team Leader
+                                </th>
+                                <th>
+                                    Team Members
+                                </th>
+                                <th>
+                                    Project Description
+                                </th>
+                                <th>
+                                    Project Status
+                                </th>
+                                <th>
+                                    Deadline
+                                </th>
+                                <th>
+                                    Sprints
+                                </th>
+                                <th>
+                                    Action
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @{
+                                foreach (var project in Model)
+                                {
+                                    <tr>
+                                        <td> @project.Name</td>
+                                        @{
+                                            List<string> members = new List<string>();
+                                            string teamLeader = "";
+                                            foreach (var user in project.UsersProjects)
+                                            {
+                                                if (user.User.PositionID == 2)
+                                                {
+                                                    teamLeader = user.User.UserName;
+                                                }
+                                                else if (user.User.PositionID == 3 || user.User.PositionID == 4)
+                                                {
+
+                                                    members.Add(user.User.UserName);
+                                                }
+                                            }
+                                            var teamMembers = String.Join(", ", members);
+                                            <td> @teamLeader</td>
+                                            <td>@teamMembers</td>
+                                        }
+                                        <td>@project.Description </td>
+                                        <td>@project.Status.Name</td>
+                                        <td> @project.DeadLine</td>
+                                        <td>
+                                            <ul>
+                                                @foreach (var sprint in project.Sprints)
+                                                {
+                                                    <li>@sprint.Name</li>
+                                                }
+                                            </ul>
+                                        </td>
+                                        <td>
+                                            @if (project.Sprints.Any())
+                                            {
+                                                <a class="btn bg-gradient-info text-white" href="/Sprint/AllSprintsManager?ProjectID=@project.ProjectID">View Sprints</a>
+
+                                                <hr />
+
+                                            }
+                                            else
+                                            {
+                                                <a class="btn bg-gradient-info disabled text-white">No sprints</a> <hr />
+                                            }
+                                           @* @if (project.StatusID == 4 || project.StatusID == 5) 
+                                            {
+                                                <a class="btn btn-outline-info disabled">Edit</a>
+                                            }
+                                            else
+                                    {*@
+                                                 <a class="btn btn-outline-info" href="/Project/EditProject?ProjectID=@project.ProjectID">Edit</a>
+                                            
+                                        </td>
+                                    </tr>
+                                }
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

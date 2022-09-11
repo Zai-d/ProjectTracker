@@ -1,0 +1,26 @@
+D:\Downloads (D)\Programming course\Technical\Final Project\ProjectTracker\ProjectTrackerBusinessLayer\bin\Release\netcoreapp3.1\ProjectTrackerBusinessLayer.deps.json
+D:\Downloads (D)\Programming course\Technical\Final Project\ProjectTracker\ProjectTrackerBusinessLayer\bin\Release\netcoreapp3.1\ProjectTrackerBusinessLayer.runtimeconfig.json
+D:\Downloads (D)\Programming course\Technical\Final Project\ProjectTracker\ProjectTrackerBusinessLayer\bin\Release\netcoreapp3.1\ProjectTrackerBusinessLayer.runtimeconfig.dev.json
+D:\Downloads (D)\Programming course\Technical\Final Project\ProjectTracker\ProjectTrackerBusinessLayer\bin\Release\netcoreapp3.1\ProjectTrackerBusinessLayer.dll
+D:\Downloads (D)\Programming course\Technical\Final Project\ProjectTracker\ProjectTrackerBusinessLayer\bin\Release\netcoreapp3.1\ProjectTrackerBusinessLayer.pdb
+D:\Downloads (D)\Programming course\Technical\Final Project\ProjectTracker\ProjectTrackerBusinessLayer\obj\Release\netcoreapp3.1\ProjectTrackerBusinessLayer.csproj.AssemblyReference.cache
+D:\Downloads (D)\Programming course\Technical\Final Project\ProjectTracker\ProjectTrackerBusinessLayer\obj\Release\netcoreapp3.1\ProjectTrackerBusinessLayer.GeneratedMSBuildEditorConfig.editorconfig
+D:\Downloads (D)\Programming course\Technical\Final Project\ProjectTracker\ProjectTrackerBusinessLayer\obj\Release\netcoreapp3.1\ProjectTrackerBusinessLayer.AssemblyInfoInputs.cache
+D:\Downloads (D)\Programming course\Technical\Final Project\ProjectTracker\ProjectTrackerBusinessLayer\obj\Release\netcoreapp3.1\ProjectTrackerBusinessLayer.AssemblyInfo.cs
+D:\Downloads (D)\Programming course\Technical\Final Project\ProjectTracker\ProjectTrackerBusinessLayer\obj\Release\netcoreapp3.1\ProjectTrackerBusinessLayer.csproj.CoreCompileInputs.cache
+D:\Downloads (D)\Programming course\Technical\Final Project\ProjectTracker\ProjectTrackerBusinessLayer\obj\Release\netcoreapp3.1\ProjectTrackerBusinessLayer.dll
+D:\Downloads (D)\Programming course\Technical\Final Project\ProjectTracker\ProjectTrackerBusinessLayer\obj\Release\netcoreapp3.1\ProjectTrackerBusinessLayer.pdb
+D:\Downloads (D)\Programming course\Technical\Final Project\ProjectTracker\ProjectTrackerBusinessLayer\obj\Release\netcoreapp3.1\ProjectTrackerBusinessLayer.genruntimeconfig.cache
+C:\ProjectTracker\ProjectTrackerBusinessLayer\bin\Release\netcoreapp3.1\ProjectTrackerBusinessLayer.deps.json
+C:\ProjectTracker\ProjectTrackerBusinessLayer\bin\Release\netcoreapp3.1\ProjectTrackerBusinessLayer.runtimeconfig.json
+C:\ProjectTracker\ProjectTrackerBusinessLayer\bin\Release\netcoreapp3.1\ProjectTrackerBusinessLayer.runtimeconfig.dev.json
+C:\ProjectTracker\ProjectTrackerBusinessLayer\bin\Release\netcoreapp3.1\ProjectTrackerBusinessLayer.dll
+C:\ProjectTracker\ProjectTrackerBusinessLayer\bin\Release\netcoreapp3.1\ProjectTrackerBusinessLayer.pdb
+C:\ProjectTracker\ProjectTrackerBusinessLayer\obj\Release\netcoreapp3.1\ProjectTrackerBusinessLayer.csproj.AssemblyReference.cache
+C:\ProjectTracker\ProjectTrackerBusinessLayer\obj\Release\netcoreapp3.1\ProjectTrackerBusinessLayer.GeneratedMSBuildEditorConfig.editorconfig
+C:\ProjectTracker\ProjectTrackerBusinessLayer\obj\Release\netcoreapp3.1\ProjectTrackerBusinessLayer.AssemblyInfoInputs.cache
+C:\ProjectTracker\ProjectTrackerBusinessLayer\obj\Release\netcoreapp3.1\ProjectTrackerBusinessLayer.AssemblyInfo.cs
+C:\ProjectTracker\ProjectTrackerBusinessLayer\obj\Release\netcoreapp3.1\ProjectTrackerBusinessLayer.csproj.CoreCompileInputs.cache
+C:\ProjectTracker\ProjectTrackerBusinessLayer\obj\Release\netcoreapp3.1\ProjectTrackerBusinessLayer.dll
+C:\ProjectTracker\ProjectTrackerBusinessLayer\obj\Release\netcoreapp3.1\ProjectTrackerBusinessLayer.pdb
+C:\ProjectTracker\ProjectTrackerBusinessLayer\obj\Release\netcoreapp3.1\ProjectTrackerBusinessLayer.genruntimeconfig.cache

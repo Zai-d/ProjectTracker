@@ -1,0 +1,38 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+	  <UseWindowsForms>true</UseWindowsForms>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Data\Migrations\20220814163419_AddingSectionsTablesNdRelations.cs" />
+    <Compile Remove="Data\Migrations\20220814163419_AddingSectionsTablesNdRelations.Designer.cs" />
+    <Compile Remove="Data\Migrations\20220815070710_RemovingWorksMissionsSprintsrelationWithMembers.cs" />
+    <Compile Remove="Data\Migrations\20220815070710_RemovingWorksMissionsSprintsrelationWithMembers.Designer.cs" />
+    <Compile Remove="Data\Migrations\20220815085459_fixingDateofbirth.cs" />
+    <Compile Remove="Data\Migrations\20220815085459_fixingDateofbirth.Designer.cs" />
+    <Compile Remove="Data\Migrations\20220818192932_checkingWhatsthere.cs" />
+    <Compile Remove="Data\Migrations\20220818192932_checkingWhatsthere.Designer.cs" />
+    <Compile Remove="Data\Migrations\20220823134236_AddingProjectActivity.cs" />
+    <Compile Remove="Data\Migrations\20220823134236_AddingProjectActivity.Designer.cs" />
+    <Compile Remove="Data\Migrations\20220823164756_test.cs" />
+    <Compile Remove="Data\Migrations\20220823164756_test.Designer.cs" />
+    <Compile Remove="Data\Migrations\20220823225123_testdate.cs" />
+    <Compile Remove="Data\Migrations\20220823225123_testdate.Designer.cs" />
+    <Compile Remove="Data\Migrations\20220903202322_AddingAttachmentNameToActivity.cs" />
+    <Compile Remove="Data\Migrations\20220903202322_AddingAttachmentNameToActivity.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="3.1.28" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="3.1.28" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="3.1.28" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.28" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.1.28">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
+
+</Project>

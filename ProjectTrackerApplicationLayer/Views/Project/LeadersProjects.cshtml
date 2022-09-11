@@ -1,0 +1,101 @@
+﻿@using ProjectTrackerBusinessLayer.Entities;
+@using System.Linq;
+@using System.Collections.Generic;
+@model List<Project>;
+@*@{
+    Layout = "~/Views/Shared/_LayoutFluidContainer.cshtml";
+}*@
+
+
+<h1 class="text-center">My Projects</h1>
+<br />
+<hr />
+<div class="row justify-content-center">
+    <div class=" col-12">
+        <div class="card mx-3 shadow mb-4">
+
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-bordered table-hover cell-border" id="ProjectTable" width="100%" cellspacing="0">
+                        <thead>
+                            <tr class="font-weight-bolder">
+                                <th>
+                                    Project Title
+                                </th>
+                                <th>
+                                    Team Members
+                                </th>
+                                <th>
+                                    Project Description
+                                </th>
+                                <th>
+                                    Project Status
+                                </th>
+                                <th>
+                                    Deadline
+                                </th>
+                                <th>
+                                    Sprints
+                                </th>
+                                <th>
+                                    Action
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @{
+                                foreach (var project in Model)
+                                {
+                                    <tr>
+                                        <td> @project.Name</td>
+                                        <td>
+                                            <ul>
+                                                @foreach (var user in project.UsersProjects)
+                                                {
+                                                    if (user.User.PositionID == 3 || user.User.PositionID == 4)
+                                                    {
+
+                                                        <li>@user.User.UserName</li>
+                                                    }
+                                                }
+                                            </ul>
+                                        </td>
+                                        <td>@project.Description </td>
+                                        <td>@project.Status.Name</td>
+                                        <td> @project.DeadLine</td>
+                                        <td>
+                                            <ul>
+                                                @foreach (var sprint in project.Sprints)
+                                                {
+                                                    <li> @sprint.Name</li>
+                                                }
+                                            </ul>
+                                        </td>
+                                        @if (project.Sprints.Any())
+                                        {
+                                            <td><a class="btn bg-gradient-info text-white" href="/Sprint/AllSprintsLeader?ProjectID=@project.ProjectID">View Sprints</a></td>
+                                        }
+                                        else
+                                        {
+                                            if (project.StatusID == 4 || project.StatusID == 5)
+                                            {
+                                                <td><a class="btn bg-gradient-info text-white disabled">Add Sprints</a></td>
+                                            }
+                                            else
+                                            {
+                                                <td><a class="btn btn-outline-info" href="/Sprint/CreateSprint?ProjectID=@project.ProjectID">Add Sprints</a></td>
+                                            }
+                                        }
+                                    </tr>
+                                }
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+@*</div>
+*@

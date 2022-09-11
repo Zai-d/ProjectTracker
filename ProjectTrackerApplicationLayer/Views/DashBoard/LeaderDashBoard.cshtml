@@ -1,0 +1,113 @@
+﻿@using ProjectTrackerBusinessLayer.Entities;
+<h2 class="text-center text-gray-800">Projects <i class="fa-solid fa-folder-closed"></i></h2>
+<br />
+<div class="row">
+	<div class="col-lg-3 "></div>
+	<div class="col-lg-6 mb-4">
+		<div class="card shadow-lg mb-4">
+			<div class="card-header py-3">
+				<h6 class="m-0 font-weight-bold text-info">Projects</h6>
+			</div>
+			<div class="card-body">
+				@foreach (var project in (List<Project>)ViewBag.Projects)
+				{
+
+					var sprints = project.Sprints;
+					double completedSprints = 0;
+					double percentage = 0;
+					if (sprints.Count != 0)
+					{
+						foreach (var sprint in sprints)
+						{
+							if (sprint.StatusID == 4)
+							{
+								completedSprints++;
+							}
+						}
+						percentage = (completedSprints / (double)sprints.Count) * 100;
+						percentage = Math.Round(percentage, 2);
+					}
+					<h4 class="small font-weight-bold">
+						<a class="text-dark" href="/Sprint/AllSprintsLeader?projectID=@project.ProjectID">
+							@project.Name
+						</a>
+						<span class="float-right">@percentage%</span>
+					</h4>
+					<div class="progress mb-4">
+						<div class="progress-bar bg-info" role="progressbar" style="width: @percentage%"
+						 aria-valuenow="@percentage" aria-valuemin="0" aria-valuemax="100"></div>
+					</div>
+				}
+			</div>
+		</div>
+	</div>
+</div>
+
+@foreach (var project in (List<Project>)ViewBag.Projects)
+{
+	if (project.Sprints.Count() != 0)
+	{
+		string dropdown = string.Concat(project.Name.Where(c => !char.IsWhiteSpace(c)));
+
+		<div class="row justify-content-center">
+			<div class="mb-4 col-12 ">
+				<div class="card mb-3 mx-3" style="background:none; border:none; ">
+					<a href="#@dropdown" class="d-block border-bottom-0 card-header" style="margin-left:-15px; margin-right:-15px; background-color:rgba(0,0,0,0.30)" data-toggle="collapse"
+			   role="button" aria-expanded="true" aria-controls="@dropdown">
+						<h6 class="text-center font-weight-bolder text-info">@project.Name</h6>
+					</a>
+					<div class="collapse show" id="@dropdown">
+						@foreach (var sprint in project.Sprints)
+						{
+							if (sprint.Missions.Count() != 0)
+							{
+								<div class="p-3 shadow-lg " style="margin-left:-15px; margin-right:-15px; background-color:#F8F9FC;">
+
+									<h6 class="text-center font-weight-bold text-info ">Sprint: @sprint.Name</h6>
+									<hr>
+									<div class="card-deck p-4">
+
+										@foreach (var mission in sprint.Missions)
+										{
+											<div class="col-lg-4 col-sm-auto ">
+
+												<div class="card mb-4">
+													<div class="card-header py-3">
+														<h6 class="m-0 font-weight-bold"><a class=" text-info" href="/Work/AllWorksLeader?missionID=@mission.MissionID">@mission.Name</a></h6>
+													</div>
+													<div class="card-body">
+														@{
+															<h5>@mission.TeamMember.UserName's work</h5>
+															<br />
+															switch (mission.StatusID)
+															{
+																case 1:
+																	<span>Mission pending</span>
+																	break;
+																case 4:
+																	<span>Mission completed</span>
+																	break;
+																case 5:
+																	<span>Mission cancelled</span>
+																	break;
+															}
+														}
+													</div>
+												</div>
+											</div>
+										}
+									</div>
+								</div>
+
+							}
+
+						}
+					</div>
+
+				</div>
+			</div>
+		</div>
+	}
+
+}
+

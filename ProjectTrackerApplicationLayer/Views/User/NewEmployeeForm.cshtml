@@ -1,0 +1,40 @@
+﻿@{
+    ViewData["Title"] = "New Employee";
+}
+@using Microsoft.AspNetCore.Identity;
+@using ProjectTrackerBusinessLayer.Entities;
+<br />
+<br />
+<h1 class="text-center">New Employee Form</h1>
+<br />
+<hr />
+<h3>What's the position of the employee you want to add?</h3>
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-6">
+            <form asp-action="AddingNewEmployee">
+                <div class="form-group">
+                    <label class="label-control">Position</label>
+                    <select class="form-control" name="PositionID">
+                        <option value="" disabled selected hidden>Select Position</option>
+                        @foreach (var position in (List<Position>)ViewBag.Positions)
+                        {
+                            if (ViewBag.PositionID == position.PositionID)
+                            {
+                                <option selected value="@position.PositionID">@position.PositionName</option>
+
+                            }
+                            <option value="@position.PositionID">@position.PositionName</option>
+                        }
+                    </select>
+                </div>
+                <input type="submit" value="Next" class="btn btn-outline-secondary" />
+                <div class="float-right">
+                    <a class="btn btn-primary" href="javascript:void(0);" onclick="history.go(-1);">Back</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+

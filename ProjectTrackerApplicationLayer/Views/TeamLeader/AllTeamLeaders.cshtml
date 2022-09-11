@@ -1,0 +1,111 @@
+﻿@using ProjectTrackerBusinessLayer.Entities;
+@model List<TeamLeader>
+
+<h1 class="text-center">All Team Leaders</h1>
+<br />
+<hr />
+<div class="row mx-3">
+
+        <a class="btn bg-gradient-info text-white" href="/TeamLeader/NewTeamLeaderForm">Add New Team Leader</a>
+</div>
+<br />
+<div class="row justify-content-center">
+    <div class=" col-12">
+        <div class="card shadow mb-4 mx-3">
+
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-bordered table-hover cell-border" id="UsersTable" width="100%" cellspacing="0">
+                        <thead>
+                            <tr>
+                                <th>
+                                    First Name
+                                </th>
+                                <th>
+                                    Last Name
+                                </th>
+                                <th>
+                                    Date Of Birth
+                                    (dd/MM/yyy)
+                                </th>
+                                <th>
+                                    Email
+                                </th>
+                                <th>
+                                    Phone Number
+                                </th>
+                                @* <th>
+                                Position
+                                </th>*@
+                                <th>
+                                    Projects
+                                </th>
+                                <th>
+                                    User Status
+                                </th>
+                                <th style="width:200px" >
+                                    Action
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @{
+                                foreach (var Leader in Model)
+                                {
+                                    <tr>
+                                        <td>@Leader.FirstName</td>
+                                        <td>@Leader.LastName</td>
+                                        @{
+                                            string dateOnly = String.Format("{0:dd/MM/yyyy}", @Leader.DateOfBirth);
+                                        }
+                                        <td>@dateOnly</td>
+                                        <td>@Leader.Email</td>
+                                        <td>@Leader.PhoneNo</td>
+                                        @* <td>@Leader.Position.PositionName</td>*@
+                                        <td>
+                                            <ul>
+                                                @foreach (var project in Leader.UsersProjects)
+                                                {
+                                                    <li>@project.Project.Name</li>
+                                                }
+                                            </ul>
+                                        </td>
+                                        @if (Leader.EmailConfirmed != true)
+                                        {
+                                            <td>Disabled</td>
+                                        }
+                                        else
+                                        {
+                                            <td>Active</td>
+                                        }
+                                        <td>
+                                            <a class="btn btn-outline-info mb-1" href="/TeamLeader/EditLeaderForm?LeaderID=@Leader.Id">Edit</a>
+                                            &nbsp;
+                                            <a class="btn btn-outline-info mb-1" href="/TeamLeader/ChangePasswordForm?LeaderID=@Leader.Id">Change Password</a>
+                                            <hr>
+
+                                            @if (Leader.EmailConfirmed == true)
+                                            {
+                                                <a class="btn bg-gradient-danger text-white mb-1" href="/TeamLeader/DisableLeader?leaderID=@Leader.Id">Disable</a>
+                                            }
+                                            else
+                                            {
+                                                <a class="btn bg-gradient-success text-white mb-1" href="/TeamLeader/DisableLeader?leaderID=@Leader.Id">Enable</a>
+                                            }
+                                        </td>
+                                    </tr>
+                                }
+                            }
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    function displayPopup(message) {
+        message = "text";
+    }
+</script>

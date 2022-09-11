@@ -1,0 +1,139 @@
+﻿@using ProjectTrackerApplicationLayer.DTO
+@using ProjectTrackerBusinessLayer.Entities
+
+@model Work
+@{
+	Layout = "~/Views/Shared/_FileInputLayout.cshtml";
+	ViewData["Title"] = "Edit Work";
+}
+
+<br />
+<h2 class="text-center">New Work Form</h2>
+<br />
+<hr />
+<h4 class="text-center">@Model.Mission.Name</h4>
+<script>
+		function StatusChecker(event) {
+			event.preventDefault();
+			var status = $('#Status').val();
+			if (status == 4 || status == 5) {
+				$('#statusModal').modal('show');
+			}
+			else {
+				EditWork(event)
+			}
+		};
+		function dismissDialog() {
+			$('#statusModal').modal('hide');
+		};
+		function submitForm(event) {
+			EditWork(event)
+		};
+		function EditWork(event) {
+			event.preventDefault();
+
+			var form = document.getElementById('workEditFormAPI');
+			var formData = new FormData(form);
+			$.ajax({
+				url: '/WorkAPI/EdittingWork',
+				data: formData,
+				type: 'PUT',
+				processData: false,
+				contentType: false,
+				dataType: 'json',
+				success: function () {
+					
+					alert('Work editted');
+					window.location.href = '@Url.Action("AllWorksAPI", "WorkAPI")' + '?missionID=' + @ViewBag.mission.MissionID;
+				},
+				error: function () {
+
+
+					alert('error!');
+				}
+
+			});
+
+		};
+			
+</script>
+
+
+<div class="modal fade" id="statusModal" tabindex="-1" role="dialog" aria-labelledby="statusCheckerModal"
+	 aria-hidden="true">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="statusCheckerModal">Are you sure you want to change the status to Cancelled/Completed?</h5>
+				<button class="close" type="button" data-dismiss="modal" aria-label="Close" onclick="dismissDialog()">
+					<span aria-hidden="true">×</span>
+				</button>
+			</div>
+			<div class="modal-body">Changing status to Cancelled/Compeleted will prevent you from making any changes, click cancel to go back and change teh status and submit to proceed</div>
+			<div class="modal-footer">
+				<button class="btn btn-secondary" type="button" data-dismiss="modal" onclick="dismissDialog()">Cancel</button>
+				<button class="btn btn-info" onclick="submitForm(event)">Submit</button>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="container">
+	<div class="row justify-content-center">
+		<div class="col-8">
+			<form id="workEditFormAPI" asp-action="EdittingWork" method="post" enctype="multipart/form-data">
+				<div asp-validation-summary="All" class="text-danger"></div>
+				<input value="@ViewBag.mission.MissionID" name="MissionID" hidden />
+				<input value="@ViewBag.mission.TeamMemberID" name="memberID" hidden />
+				<input asp-for="WorkID" hidden />
+				<div class="form-group">
+					<label asp-for="Name" class="label-control"></label>
+					<input asp-for="Name" class="form-control col-md-5" />
+					<span asp-validation-for="Name" class="text-danger"></span>
+				</div>
+				<br />
+				<div class="form-group">
+					<label asp-for="WorkDescription" class="label-control"></label>
+					<textarea asp-for="WorkDescription" class="form-control"></textarea>
+					<span asp-validation-for="WorkDescription" class="text-danger"></span>
+				</div>
+				<br />
+				<div class="form-group">
+					<label class="label-control">Status</label>
+					<select id="Status" class="form-control" asp-for="StatusID">
+						@foreach (var status in (List<Status>)ViewBag.Statuses)
+						{
+							if (Model.StatusID == status.StatusID)
+							{
+								<option selected value="@status.StatusID">@status.Name</option>
+							}
+							else
+							{
+								<option value="@status.StatusID">@status.Name</option>
+							}
+						}
+					</select>
+				</div>
+				<br />
+				<div class="form-group">
+					<label class="label-control">Attached files:</label>
+					<select class="form-control" id="filesMultiple" multiple name="AttachmentIDs">
+						@foreach (var attachment in (List<Attachment>)ViewBag.Attachments)
+						{
+
+							<option selected value="@attachment.AttachmentID">@attachment.FileName</option>
+
+						}
+					</select>
+					<input type="file" class="file" multiple value="@ViewBag.Attachments" id="FileLib" name="files"> </input>
+					<script>
+
+						// with plugin options
+						$("#FileLib").fileinput({ 'showUpload': false, 'previewFileType': 'any' });
+					</script>
+				</div>
+				<br />
+				<button type="submit" value="Update" class="btn btn-outline-info" onclick="StatusChecker(event)">Update</button>
+			</form>
+		</div>
+	</div>
+</div>

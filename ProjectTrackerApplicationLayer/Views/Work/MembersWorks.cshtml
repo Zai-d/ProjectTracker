@@ -1,0 +1,111 @@
+﻿@using ProjectTrackerBusinessLayer.Entities;
+@using System.Linq;
+@using System.Collections.Generic;
+@model List<Work>;
+@*@{
+    Layout = "~/Views/Shared/_LayoutFluidContainer.cshtml";
+}*@
+
+<h1 class="text-center">Mission: @ViewBag.Mission.Name <br /> My Works</h1>
+<br />
+
+<h5 class="text-danger mx-3">Last date to submit work:@ViewBag.Mission.Sprint.EndDate </h5>
+
+<hr />
+
+<div class="row mx-3">
+	@{
+		//var workThatisAprroved = @Model.Where(x => x.StatusID == 2).ToList().Count;
+		//var totalWork = Model.Count();
+		//var missionCompleted = Model.Where(x => x.Mission.StatusID == 4 || x.Mission.StatusID == 5).ToList();
+		if (@ViewBag.StatusesChecker)
+		{
+
+
+						<a class="btn bg-gradient-info text-white" href="/Work/AddWork?MissionID=@ViewBag.missionID">Add work</a>
+
+
+		}
+		else
+		{
+						<a class="btn bg-info text-white disabled">Add work</a>
+		}
+
+	}
+</div>
+<br />
+<div class="row justify-content-center">
+	<div class=" col-12">
+		<div class="card mx-3 shadow mb-4">
+
+			<div class="card-body">
+				<div class="table-responsive">
+					<table class="table table-bordered table-hover cell-border" id="WorkTable" width="100%" cellspacing="0">
+						<thead>
+							<tr class="font-weight-bolder">
+								<th>
+									Work Title
+								</th>
+								<th>
+									Work Description
+								</th>
+								<th>
+									Status
+								</th>
+								<th>
+									Attachment Submitted
+								</th>
+								<th>
+									Team Leader Note
+								</th>
+								<th>
+									Action
+								</th>
+							</tr>
+						</thead>
+						<tbody>
+							@{
+								foreach (var work in Model)
+								{
+												<tr>
+													<td> @work.Name</td>
+													<td> @work.WorkDescription</td>
+													<td>@work.Status.Name</td>
+													<td>
+														<ul>
+															@foreach (var attach in work.Attachments)
+												{
+																<li><a href="/Attachment/OpenFile?attachmentID=@attach.AttachmentID" target="_blank"> @attach.FileName</a></li>
+												}
+														</ul>
+													</td>
+													<td>@work.TeamLeaderNote</td>
+													@if (work.StatusID != 4 && work.StatusID != 5 && work.StatusID != 2 && ViewBag.StatusesChecker)
+										{
+														<td><a class="btn btn-outline-info" href="/Work/EditWork?workID=@work.WorkID&missionID=@work.MissionID">Edit</a></td>
+										}
+										else
+										{
+														<td><a data-toggle="tooltip" title="Can't edit check mission/work status" class="btn btn-outline-info disabled">Edit</a></td>
+										}
+												</tr>
+								}
+							}
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+		<div class="row mx-3">
+			<a class="btn btn-info" href="/Mission/MembersMissions?sprintID=@ViewBag.Mission.SprintID">Back</a>
+		</div>
+	</div>
+
+</div>
+@*</div>
+*@
+<script>
+	$(document).ready(function () {
+		$('[data-toggle="tooltip"]').tooltip();
+	});
+</script>

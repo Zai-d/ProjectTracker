@@ -1,0 +1,57 @@
+﻿@using ProjectTrackerBusinessLayer.Entities;
+@using System.Linq;
+@using System.Collections.Generic;
+@model List<Activity>;
+
+
+<h1 class="text-center">Project Changes</h1>
+
+
+<br />
+<br />
+<hr />
+<div class="row justify-content-center">
+    <div class=" col-12">
+        <div class="card my-2 shadow mb-4">
+
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-bordered table-hover cell-border" id="ActivityTables" width="100%" cellspacing="0">
+                        <thead>
+                            <tr class="font-weight-bolder">
+                                <th>
+                                    Project Name
+                                </th>
+                                <th>
+                                    Project Description
+                                </th>
+                                <th>
+                                    Status
+                                </th>
+                                <th>
+                                    Date & Time
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @{
+                                foreach (var activity in Model)
+                                {
+                                    <tr>
+                                        <td> @activity.ProjectTitle</td>
+                                        <td> @activity.ProjectDescription</td>
+
+                                        <td>@activity.Status.Name</td>
+
+                                        <td>@activity.DateTime</td>
+                                    </tr>
+                                }
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

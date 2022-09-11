@@ -1,0 +1,79 @@
+﻿@using ProjectTrackerBusinessLayer.Entities;
+@using System.Linq;
+@using System.Collections.Generic;
+@model List<Work>;
+@*@{
+    Layout = "~/Views/Shared/_LayoutFluidContainer.cshtml";
+}*@
+
+<h1 class="text-center">Mission: @ViewBag.Mission.Name <br /> Works</h1>
+
+<br />
+<hr />
+
+
+<div class="row justify-content-center">
+    <div class=" col-12">
+        <div class="card mx-3 shadow mb-4">
+
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-bordered table-hover cell-border" id="WorkTable" width="100%" cellspacing="0">
+                        <thead>
+                            <tr class="font-weight-bolder">
+                                <th>
+                                    Work Title
+                                </th>
+                                <th>
+                                    Work Description
+                                </th>
+                                <th>
+                                    Team Member
+                                </th>
+                                <th>
+                                    Status
+                                </th>
+                                <th>
+                                    Attachment Submitted
+                                </th>
+                                <th>
+                                    Team Leader Note
+                                </th>
+                               
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @{
+                                foreach (var work in Model)
+                                {
+                                    <tr>
+                                        <td> @work.Name</td>
+                                        <td> @work.WorkDescription</td>
+
+                                        <td>@work.Mission.TeamMember.UserName</td>
+
+                                        <td>@work.Status.Name</td>
+                                        <td>
+                                            <ul>
+                                                @foreach (var attach in work.Attachments)
+                                                {
+                                                    <li><a href="/Attachment/OpenFile?attachmentID=@attach.AttachmentID" target="_blank">@attach.FileName</a></li>
+                                                }
+                                            </ul>
+                                        </td>
+                                        <td>@work.TeamLeaderNote</td>
+                                    </tr>
+                                }
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="row mx-3">
+            <a class="btn btn-info" href="/Mission/AllMissionsManager?sprintID=@ViewBag.Mission.SprintID">Back</a>
+		</div>
+    </div>
+</div>
+@*</div>
+*@

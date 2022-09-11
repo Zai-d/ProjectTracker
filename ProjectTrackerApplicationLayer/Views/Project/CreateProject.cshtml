@@ -1,0 +1,54 @@
+﻿@using ProjectTrackerBusinessLayer.Entities;
+@using ProjectTrackerApplicationLayer.DTO;
+@model ProjectDTO
+@{
+    ViewData["Title"] = "Create Project";
+}
+<br />
+<h2 class="text-center">New Project Form</h2>
+<br />
+<hr />
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-8">
+            <form asp-action="AddingProject">
+                <div asp-validation-summary="All" method="post" class="text-danger"></div>
+                <div class="form-group">
+                    <label asp-for="Name" class="label-control"></label>
+                    <input asp-for="Name" class="form-control col-md-5" />
+                    <span asp-validation-for="Name" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Description" class="label-control"></label>
+                    <textarea asp-for="Description" class="form-control"></textarea>
+                    <span asp-validation-for="Description" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="DeadLine" class="label-control"></label>
+                    <input asp-for="DeadLine" class="form-control" />
+                    <span asp-validation-for="DeadLine" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="TeamLeaderID" class="label-control"></label>
+                    <select class="form-control" name="TeamLeaderID">
+                        <option disabled selected value="0">Select team leader</option>
+                        @foreach (var leader in (List<TeamLeader>)ViewBag.Leaders)
+                        {
+                            <option value="@leader.Id">@leader.FirstName @leader.LastName</option>
+                        }
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label asp-for="TeamMembersIDs" class="label-control"></label>
+                    <select id="MultipleMembers" multiple class="form-control" name="TeamMembersIDs">
+                        @foreach (var member in (List<TeamMember>)ViewBag.Members)
+                        {
+                            <option value="@member.Id">@member.FirstName @member.LastName</option>
+                        }
+                    </select>
+                </div>
+                <input type="submit" value="Add" class="btn btn-outline-info" />
+            </form>
+        </div>
+    </div>
+</div>

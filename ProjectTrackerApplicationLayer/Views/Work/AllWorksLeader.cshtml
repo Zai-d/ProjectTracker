@@ -1,0 +1,151 @@
+﻿@using ProjectTrackerBusinessLayer.Entities;
+@using System.Linq;
+@using System.Collections.Generic;
+@model List<Work>;
+@*@{
+    Layout = "~/Views/Shared/_LayoutFluidContainer.cshtml";
+}*@
+
+<h1 class="text-center">Mission: @ViewBag.Mission.Name <br /> Works</h1>
+
+<br />
+
+<h5 class="text-danger font-weight-bolder mx-3">Last date to submit work:@ViewBag.Mission.Sprint.EndDate </h5>
+
+<hr />
+<div class="row mx-3">
+
+	@{
+		var workApproved = @Model.Where(x => x.StatusID == 2).ToList().Count;
+		var workCount = Model.Count();
+		if (workApproved == workCount)
+		{
+			<a class="btn bg-gradient-info text-white" href="/Mission/AllWorkApproved?missionID=@ViewBag.Mission.MissionID">Done</a>
+		}
+		else
+		{
+			<a class="btn disabled bg-info text-white">Done</a>
+
+		}
+
+	}
+</div>
+<br />
+
+
+<div class="row justify-content-center">
+	<div class=" col-12">
+		<div class="card shadow mx-3 mb-4">
+
+			<div class="card-body">
+				<div class="table-responsive">
+					<table class="table table-bordered table-hover cell-border" id="WorkTable" width="100%" cellspacing="0">
+						<thead>
+							<tr class="font-weight-bolder">
+								<th>
+									Work Title
+								</th>
+								<th>
+									Work Description
+								</th>
+								<th>
+									Team Member
+								</th>
+								<th>
+									Status
+								</th>
+								<th>
+									Attachment Submitted
+								</th>
+								<th>
+									Team Leader note
+								</th>
+								<th>
+									Action
+								</th>
+							</tr>
+						</thead>
+						<tbody>
+							@{
+								foreach (var work in Model)
+								{
+									<tr>
+										<td> @work.Name</td>
+										<td> @work.WorkDescription</td>
+
+										<td>@work.Mission.TeamMember.UserName</td>
+
+										<td>@work.Status.Name</td>
+										<td>
+											<ul>
+												@foreach (var attach in work.Attachments)
+												{
+													<li><a href="/Attachment/OpenFile?attachmentID=@attach.AttachmentID" target="_blank">@attach.FileName</a></li>
+												}
+											</ul>
+										</td>
+										<td>@work.TeamLeaderNote</td>
+										@if (work.StatusID == 4)
+										{
+											<td>
+												<a class="btn btn-success" id="approveBtn" href="/Work/LeaderApprove?workID=@work.WorkID">Approve</a>
+												<hr>
+												<a class="btn btn-danger text-white" id="denyBtn"  onclick="denyBtn()">Deny</a>
+												<h5 id="Title" style="display:none">Reject note</h5>
+												<textarea placeholder="Insert your notes" cols="40" rows="10" name="text" id="text_id"  style="resize:vertical;display:none"></textarea>
+												<br>
+												<a class="btn btn-info text-white " id="submit" onclick="submit()" style="display:none">Submit</a> <a class="btn btn-secondary  text-white" onclick="back()" id="back" style="display:none">Back</a>
+												<script>
+													 function denyBtn() {
+															$("#approveBtn").toggle();
+															$("#denyBtn").toggle();
+															$("#text_id").toggle();
+															$("#Title").toggle();
+															$("#submit").toggle();
+															$("#back").toggle();
+														}
+													function back() {
+															$("#approveBtn").toggle();
+															$("#denyBtn").toggle();
+															$("#text_id").toggle();
+															$("#Title").toggle();
+															$("#submit").toggle();
+															$("#back").toggle();
+														}
+													function submit() {
+															var result = confirm("Are you sure?")
+															if (result == true) {
+																var text = $("#text_id").val();
+																window.location.href = '@Url.Action("AddRejectNote", "Work")' + '?note=' + text + '&workID=' + @work.WorkID;
+															}
+														}
+													
+												</script>
+											</td>
+										}
+
+										else
+										{
+											<td>
+												<a class="btn bg-success disabled">Approve</a>
+												<hr>
+												<a class="btn bg-danger  disabled">Deny</a>
+											</td>
+										}
+
+									</tr>
+								}
+							}
+						</tbody>
+					</table>
+
+				</div>
+			</div>
+		</div>
+		<div class="row mx-3">
+			<a class="btn btn-info" href="/Mission/AllMissionsLeader?sprintID=@ViewBag.Mission.SprintID">Back</a>
+		</div>
+	</div>
+</div>
+@*</div>
+*@

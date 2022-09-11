@@ -1,0 +1,57 @@
+﻿@using ProjectTrackerApplicationLayer.DTO
+@model UserDTO
+@{
+    ViewData["Title"] = "New Team Leader Form";
+}
+<h2 class="text-center">New Team Leader</h2>
+<br />
+<hr />
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-8">
+            <form asp-action="AddingTeamLeader">
+                <div asp-validation-summary="All" class="text-danger"></div>
+                <div class="form-group">
+                    <label asp-for="FirstName" class="label-control"></label>
+                    <input asp-for="FirstName" class="form-control" />
+                    <span asp-validation-for="FirstName" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="LastName" class="label-control"></label>
+                    <input  asp-for="LastName" class="form-control" />
+                    <span asp-validation-for="LastName" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Email" class="label-control"></label>
+                    <input asp-for="Email" class="form-control" />
+                    <span asp-validation-for="Email" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="PhoneNo" class="label-control"></label>
+                    <input  asp-for="PhoneNo" class="form-control" />
+                    <span asp-validation-for="PhoneNo" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="DateOfBirth" class="label-control"></label>
+                    <input asp-for="DateOfBirth" class="form-control" />
+                    <span asp-validation-for="DateOfBirth" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Password" class="label-control"></label>
+                    <input autocomplete ="new-password" asp-for="Password" class="form-control" />
+                    <span asp-validation-for="Password" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="ConfirmPassword" class="label-control"></label>
+                    <input  asp-for="ConfirmPassword" class="form-control" />
+                    <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Add" class="btn btn-outline-info" />
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+

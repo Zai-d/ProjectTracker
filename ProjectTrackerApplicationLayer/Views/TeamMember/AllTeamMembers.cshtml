@@ -1,0 +1,121 @@
+﻿@using ProjectTrackerBusinessLayer.Entities;
+@model List<TeamMember>
+
+<h1 class="text-center">All Team Members</h1>
+<br />
+<hr />
+@*<a class="btn btn-outline-info" href="/TeamMember/NewTeamMemberForm?rank=3"> New Team Member senior</a>
+<a class="btn btn-outline-info" href="/TeamMember/NewTeamMemberForm?rank=4"> New Team Member jenior</a>*@
+
+<div class="row mx-3">
+
+        <div class="dropdown">
+            <button class="btn bg-gradient-info text-white dropdown-toggle" type="button" id="AddNewMember" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Add Member
+            </button>
+            <div class="dropdown-menu shadow dropdown-menu-left animated--fade-in" aria-labelledby="AddNewMember">
+                <a class="dropdown-item" type="button" href="/TeamMember/NewTeamMemberForm?rank=3">New Senior Member</a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" type="button" href="/TeamMember/NewTeamMemberForm?rank=4">New Junior Member</a>
+            </div>
+        </div>
+</div>
+
+<br />
+<div class="row justify-content-center">
+    <div class=" col-12">
+        <div class="card mx-3 shadow mb-4">
+
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-bordered table-hover cell-border" id="MemberTable" width="100%" cellspacing="0">
+                        <thead>
+                            <tr>
+                                <th>
+                                    First Name
+                                </th>
+                                <th>
+                                    Last Name
+                                </th>
+                                <th>
+                                    Date Of Birth
+                                    (dd/MM/yyy)
+                                </th>
+                                <th>
+                                    Email
+                                </th>
+                                <th>
+                                    Phone Number
+                                </th>
+                                <th>
+                                    Position
+                                </th>
+                                <th>
+                                    Projects
+                                </th>
+                                <th>
+                                    User Status
+                                </th>
+                                <th style="width:200px">
+                                    Actions
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @{
+                                foreach (var Member in Model)
+                                {
+                                    <tr>
+                                        <td>@Member.FirstName</td>
+                                        <td>@Member.LastName</td>
+                                        @{
+                                            string dateOnly = String.Format("{0:dd/MM/yyyy}", @Member.DateOfBirth);
+                                        }
+                                        <td>@dateOnly</td>
+                                        <td>@Member.Email</td>
+                                        <td>@Member.PhoneNo</td>
+                                        <td>@Member.Position.PositionName</td>
+                                        <td>
+                                            <ul>
+                                                @foreach (var project in Member.UsersProjects)
+                                                {
+                                                    <li>@project.Project.Name</li>
+                                                }
+                                            </ul>
+                                        </td>
+                                        @if (Member.EmailConfirmed != true)
+                                        {
+                                            <td>Disabled</td>
+                                        }
+                                        else
+                                        {
+                                            <td>Active</td>
+                                        }
+                                        <td>
+
+                                            <a class="btn btn-outline-info mb-1" href="/TeamMember/ChangePasswordForm?MemberID=@Member.Id">Change Password</a>
+                                            &nbsp;
+                                            <a class="btn btn-outline-info mb-1" href="/TeamMember/EditMemberForm?MemberID=@Member.Id">Edit</a>
+                                            <hr>
+                                
+                                            @if (Member.EmailConfirmed == true)
+                                            {
+                                                <a class="btn bg-gradient-danger text-white mb-1" href="/TeamMember/DisableMember?memberID=@Member.Id">Disable</a>
+                                            }
+                                            else
+                                            {
+                                                <a class="btn bg-gradient-success text-white mb-1" href="/TeamMember/EnableMember?memberID=@Member.Id">Enable</a>
+                                            }
+                                        </td>
+                                        
+                                    </tr>
+                                }
+                            }
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
